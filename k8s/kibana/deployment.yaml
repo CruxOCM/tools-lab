@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kibana
+  name: kibana
+  namespace: signal-suite
+spec:
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - env:
+            - name: ELASTICSEARCH_HOSTS
+              value: http://elasticsearch:9200/
+            - name: ELASTICSEARCH_PASSWORD
+              value: elastic
+            - name: ELASTICSEARCH_USERNAME
+              value: kibana_system
+            - name: SERVER_HOST
+              value: 0.0.0.0
+          image: docker.elastic.co/kibana/kibana:8.16.1
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - -f
+                - http://localhost:5601/api/status
+            failureThreshold: 5
+            periodSeconds: 30
+            timeoutSeconds: 10
+          name: kibana
+          ports:
+            - containerPort: 5601
+              protocol: TCP
+      restartPolicy: Always

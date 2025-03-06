@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: elasticsearch
+  name: elasticsearch
+  namespace: signal-suite
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - env:
+            - name: ELASTIC_PASSWORD
+              value: elastic
+            - name: ES_JAVA_OPTS
+              value: -Xms512m -Xmx512m
+            - name: bootstrap.memory_lock
+              value: "true"
+            - name: cluster.name
+              value: signal-suite-cluster
+            - name: discovery.type
+              value: single-node
+            - name: http.max_content_length
+              value: 1gb
+            - name: node.name
+              value: elasticsearch
+            - name: xpack.security.enabled
+              value: "true"
+          image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - -f
+                - -u
+                - elastic:elastic
+                - http://localhost:9200
+            failureThreshold: 5
+            periodSeconds: 30
+            timeoutSeconds: 10
+          name: elasticsearch
+          ports:
+            - containerPort: 9200
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: es-data
+      restartPolicy: Always
+      volumes:
+        - name: es-data
+          persistentVolumeClaim:
+            claimName: es-data
