@@ -42,7 +42,15 @@ spec:
           volumeMounts:
             - mountPath: /etc/influxdb2
               name: influxdb-config
+            - mountPath: /var/lib/influxdb2
+              name: influxdb-data
       volumes:
+        - name: influxdb-data
+          persistentVolumeClaim:
+            claimName: influxdb-claim
         - configMap:
+            items:
+              - key: influx-configs
+                path: config
             name: influxdb-config
           name: influxdb-config
