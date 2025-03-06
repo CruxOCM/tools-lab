@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: signal-suite
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: signal-suite
+  template:
+    metadata:
+      labels:
+        app: signal-suite
+    spec:
+      containers:
+        - env:
+            - name: ENVIRONMENT
+              value: local
+          image: signal-suite
+          name: signal-suite
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/logs
+              name: signal-suite-claim-logs
+            - mountPath: /app/data
+              name: signal-suite-claim-data
+      restartPolicy: Always
+      volumes:
+        - name: signal-suite-claim-logs
+          persistentVolumeClaim:
+            claimName: signal-suite-claim-logs
+        - name: signal-suite-claim-data
+          persistentVolumeClaim:
+            claimName: signal-suite-claim-data
