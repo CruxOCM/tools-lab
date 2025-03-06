@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb
+  namespace: signal-suite
+spec:
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+        - env:
+            - name: DOCKER_INFLUXDB_INIT_ADMIN_TOKEN
+              value: your_admin_token
+            - name: DOCKER_INFLUXDB_INIT_BUCKET
+              value: poc
+            - name: DOCKER_INFLUXDB_INIT_HOST
+              value: influxdb
+            - name: DOCKER_INFLUXDB_INIT_MODE
+              value: setup
+            - name: DOCKER_INFLUXDB_INIT_ORG
+              value: crux
+            - name: DOCKER_INFLUXDB_INIT_PASSWORD
+              value: admin_password
+            - name: DOCKER_INFLUXDB_INIT_PORT
+              value: "8086"
+            - name: DOCKER_INFLUXDB_INIT_RETENTION
+              value: 10000w
+            - name: DOCKER_INFLUXDB_INIT_USERNAME
+              value: admin
+          image: influxdb:2.7.5
+          name: influxdb
+          ports:
+            - containerPort: 8086
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/influxdb2
+              name: influxdb-config
+      volumes:
+        - configMap:
+            name: influxdb-config
+          name: influxdb-config
