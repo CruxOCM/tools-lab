@@ -116,5 +116,6 @@ data:
 kind: ConfigMap
 metadata:
   labels:
-    io.kompose.service: jupyterhub
+   app: jupyterhub
   name: jupyterhub-cm1
+  namespace: signal-suite
