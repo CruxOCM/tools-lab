@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+  namespace: signal-suite
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - env:
+            - name: GF_INSTALL_PLUGINS
+              value: blackcowmoo-googleanalytics-datasource
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: admin_password
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+          image: grafana/grafana:10.3.1
+          name: grafana
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/grafana/grafana.ini
+              name: grafana-config
+              subPath: grafana.ini
+      volumes:
+        - configMap:
+            items:
+              - key: grafana.ini
+                path: grafana.ini
+            name: grafana-config
+          name: grafana-config
