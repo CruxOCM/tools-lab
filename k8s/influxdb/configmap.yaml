@@ -6,3 +6,4 @@ metadata:
   labels:
     app: influxdb
   name: influxdb-config
+  namespace: signal-suite
