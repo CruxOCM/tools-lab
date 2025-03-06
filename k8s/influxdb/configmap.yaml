@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  influx-configs: "[default]\n  url = \"http://localhost:8086\"\n  token = \"your_admin_token\"\n  org = \"crux\"\n  active = true\n# \n# [eu-central]\n#   url = \"https://eu-central-1-1.aws.cloud2.influxdata.com\"\n#   token = \"XXX\"\n#   org = \"\"\n# \n# [us-central]\n#   url = \"https://us-central1-1.gcp.cloud2.influxdata.com\"\n#   token = \"XXX\"\n#   org = \"\"\n# \n# [us-west]\n#   url = \"https://us-west-2-1.aws.cloud2.influxdata.com\"\n#   token = \"XXX\"\n#   org = \"\"\n"
+kind: ConfigMap
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb-config
