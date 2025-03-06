@@ -24,7 +24,7 @@ spec:
               value: af33d830cdf857b61501a2fb7254706fd974dfdbcf9b55d2b3dfaa56e17d0cc4
             - name: JUPYTERHUB_USER_DATA_PATH
               value: ./data/jupyter/user_data/
-          image: jupyterhub
+          image: localhost:6000/signal-suite-jupyterhub
           name: jupyterhub
           ports:
             - containerPort: 8888
