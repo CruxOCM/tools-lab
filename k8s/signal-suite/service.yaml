@@ -4,6 +4,7 @@ metadata:
   labels:
     app: signal-suite
   name: signal-suite
+  namespace: signal-suite
 spec:
   ports:
     - name: "8080"
