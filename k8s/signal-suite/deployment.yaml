@@ -17,7 +17,7 @@ spec:
         - env:
             - name: ENVIRONMENT
               value: local
-          image: signal-suite
+          image: localhost:6000/signal-suite
           name: signal-suite
           ports:
             - containerPort: 8080
