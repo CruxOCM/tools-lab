@@ -24,14 +24,14 @@ spec:
               protocol: TCP
           volumeMounts:
             - mountPath: /app/logs
-              name: signal-suite-claim-logs
+              name: signal-suite-logs
             - mountPath: /app/data
-              name: signal-suite-claim-data
+              name: signal-suite-data
       restartPolicy: Always
       volumes:
-        - name: signal-suite-claim-logs
+        - name: signal-suite-logs
           persistentVolumeClaim:
             claimName: signal-suite-claim-logs
-        - name: signal-suite-claim-data
+        - name: signal-suite-data
           persistentVolumeClaim:
             claimName: signal-suite-claim-data
