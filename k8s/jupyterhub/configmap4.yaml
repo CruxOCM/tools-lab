@@ -1,0 +1,227 @@
+apiVersion: v1
+data:
+  users.json: |-
+    [
+        {
+        "id": 1,
+        "username": "bot",
+        "name": "Bot",
+        "email": "bot@cruxocm.com",
+        "slack": "signalsuitenotificati",
+        "hash": "1e45a8fa3747fd10b93220423af398400abcf7eb5d58c46f1106332bbb4530bd",
+        "api_token": "a476bd3cd6965d2b1c889b"
+      },
+      {
+        "id": 2,
+        "username": "alex",
+        "name": "Alex Bystrytskyi",
+        "email": "alex@cruxocm.com",
+        "slack": "alex",
+        "hash": "a476bd3cd6965d2b1c889b3d00585eaf6917806517e90878c560cda1da44dac9",
+        "api_token": "a476bd3cd6965d2b1c889b"
+      },
+      {
+        "id": 3,
+        "username": "kathleen",
+        "name": "Kathleen Li",
+        "slack": "lik",
+        "email": "lik@cruxocm.com",
+        "hash": "141256c5c1405ee342242e7937a27643cc87da3a54a0fb5cf6a703015ba9b0a5",
+        "api_token": "141256c5c1405ee34224"
+      },
+      {
+        "id": 4,
+        "username": "masih",
+        "name": "Masih Sekhavat",
+        "slack": "masih",
+        "email": "masih@cruxocm.com",
+        "hash": "642ceb7c9846ef21db6274f92e3860534053d6b1d50004fac7712e28c9609950",
+        "api_token": "642ceb7c9846ef21db6274f"
+      },
+      {
+        "id": 5,
+        "username": "kirill",
+        "name": "Kirill",
+        "slack": "kirill",
+        "email": "kirill@cruxocm.com",
+        "hash": "c2a3e6c2f63c103adaa1a8ce0c5ce5ba8f2ccc404cff42b5d6f0d284829709a9",
+        "api_token": "c2a3e6c2f63c103adaa1a8c"
+      },
+      {
+        "id": 6,
+        "username": "oguzhan",
+        "name": "Oguzhan",
+        "slack": "dogruo",
+        "email": "dogruo@cruxocm.com",
+        "hash": "b684be6bd0c32cae271c39e86b495d78ff5cbb0de7849fc637eebe7004ba37f4",
+        "api_token": "b684be6bd0c32cae271c39e"
+      },
+      {
+        "id": 7,
+        "username": "seb",
+        "name": "Seb",
+        "slack": "skokos",
+        "email": "skokos@cruxocm.com",
+        "hash": "4b582e18eef2a7cf95e8f6088d5265c5d8360dc8558f0b1f57676f77769e7f35",
+        "api_token": "4b582e18eef2a7cf95e8f608"
+      },
+      {
+        "id": 8,
+        "username": "yash",
+        "name": "Yash",
+        "slack": "yash",
+        "email": "yash@cruxocm.com",
+        "hash": "c28cedc5f5d89f3af2575569fb6a333686bafd2ff022b542fb85a57248b03169",
+        "api_token": "c28cedc5f5d89f3af2575569"
+      },
+      {
+        "id": 9,
+        "username": "alfred",
+        "name": "Alfred",
+        "slack": "leea",
+        "email": "leea@cruxocm.com",
+        "hash": "1763975dcebd4afb2171bf9bedda1efb19dfedd4944bf6aeb81b4f80dfb8b1fd",
+        "api_token": "1763975dcebd4afb2171bf9b"
+      },
+      {
+        "id": 10,
+        "username": "dave",
+        "name": "Dave",
+        "slack": "cullend",
+        "email": "cullend@cruxocm.com",
+        "hash": "975b9c66724c91dda4c449d4e80d14d84b7896829db5ed25871c40c53c56daab",
+        "api_token": "975b9c66724c91dda4c4"
+      },
+      {
+        "id": 11,
+        "username": "melissa",
+        "name": "Melissa",
+        "slack": "barraganm",
+        "email": "barraganm@cruxocm.com",
+        "hash": "a63db722ca647d3c3df9f83008e5c703bf40255e45d490f6607eabd952ee78a8",
+        "api_token": "a63db722ca647d3c3df9f830"
+      },
+      {
+        "id": 12,
+        "username": "helia",
+        "name": "Helia",
+        "slack": "safaeeh",
+        "email": "safaeeh@cruxocm.com",
+        "hash": "352e2b3299dc9c6c00b976bf5e133613fedf993b3850d00c19ddc1b3ca0f5723",
+        "api_token": "352e2b3299dc9c6c00b976bf"
+      },
+      {
+        "id": 13,
+        "username": "bing",
+        "name": "Bing",
+        "slack": "xiaob",
+        "email": "xiaob@cruxocm.com",
+        "hash": "ce6ebdcee02935809ae3d914234d55df1c07c8a24b35e913a15382afb8603188",
+        "api_token": "ce6ebdcee02935809ae3d914"
+      },
+      {
+        "id": 14,
+        "username": "kishore",
+        "name": "Kishore",
+        "slack": "jeyaramank",
+        "email": "jeyaramank@cruxocm.com",
+        "hash": "56d284cebb41116bba3168d9c7d924a2b966925896aa85aa27f854f8d7c2940d",
+        "api_token": "56d284cebb41116bba3168d9"
+      },
+      {
+        "id": 15,
+        "username": "jeff",
+        "name": "Jeff",
+        "slack": "laij",
+        "email": "laij@cruxocm.com",
+        "hash": "a7313872003ddaf42d957584f822a8f618f082e254e05c0ef20dc46b68dd2c69",
+        "api_token": "a7313872003ddaf42d957584f"
+      },
+      {
+        "id": 16,
+        "username": "monika",
+        "name": "Monika",
+        "slack": "monika",
+        "email": "monika@cruxocm.com",
+        "hash": "3ccc3dc945634d091b3c2bc3f5d2aec82adf9d4dc7ebcb35369ee2e421b238e9",
+        "api_token": "3ccc3dc945634d091b3c2bc3f"
+      },
+      {
+        "id": 17,
+        "username": "carlos",
+        "name": "Carlos",
+        "slack": "carlos",
+        "email": "carlos@cruxocm.com",
+        "hash": "3df6d6d23d98b03687c7f7181fc9bf65189d1bb96fbb947a04bb5842ec9dfb70",
+        "api_token": "3df6d6d23d98b03687c7f7181f"
+      },
+      {
+        "id": 18,
+        "username": "jay",
+        "name": "Jay",
+        "slack": "jay",
+        "email": "jay@cruxocm.com",
+        "hash": "5ea7815dad2f4145ebc1b7fd6eff65073d9eac87172abd757a7c29afb69e424c",
+        "api_token": "5ea7815dad2f4145ebc1b7fd6e"
+      },
+      {
+        "id": 19,
+        "username": "roger",
+        "name": "Roger",
+        "slack": "roger",
+        "email": "roger@cruxocm.com",
+        "hash": "06aaa7933e2c34938cc3aee410bb8876c64fade773c922f71dc39629c96cf743",
+        "api_token": "06aaa7933e2c34938cc3aee410"
+      },
+      {
+        "id": 20,
+        "username": "nirav",
+        "name": "Nirav Raivani",
+        "slack": "nirav",
+        "email": "nirav@cruxocm.com",
+        "hash": "d2ee0a7a76c96ee4798ce1c65588acff0d28d79aadd0688055bf40fb20f60021",
+        "api_token": "d2ee0a7a76c96ee4798ce1c655"
+      },
+      {
+        "id": 21,
+        "username": "ihor",
+        "name": "Ihor Reshetnov",
+        "slack": "ihor",
+        "email": "ihor@cruxocm.com",
+        "hash": "ab06d17d72811e55884f3925db252414ca355d9b0a5092f14c132427f13bbfa9",
+        "api_token": "ab06d17d72811e55884f3925db"
+      },
+      {
+        "id": 22,
+        "username": "karan",
+        "name": "Karan Nandani",
+        "slack": "karan",
+        "email": "karan@cruxocm.com",
+        "hash": "53d66867a4b2162463ae4b3dee6d3cb31a7b76e39c22caad084b9702c9775c87",
+        "api_token": "53d66867a4b2162463ae4b3dee"
+      },
+      {
+        "id": 23,
+        "username": "roman",
+        "name": "Roman",
+        "slack": "roman",
+        "email": "roman@cruxocm.com",
+        "hash": "cbbd4ee7760722a348c0a04773467d46653c06b0250882db61fe0a5f025b01b5",
+        "api_token": "cbbd4ee7760722a348c0a04773"
+      },
+      {
+        "id": 24,
+        "username": "BaranovI",
+        "name": "Igor Baranov",
+        "slack": "baranovi",
+        "email": "BaranovI@cruxocm.com",
+        "hash": "3603cd6e96a48680fafc0d242c8bfe6195defc61db40fe202f672ca4e4277f5b",
+        "api_token": "3603cd6e96a48680faf"
+      }
+    ]
+kind: ConfigMap
+metadata:
+  labels:
+    app: jupyterhub
+  name: jupyterhub-cm4
+  namespace: signal-suite

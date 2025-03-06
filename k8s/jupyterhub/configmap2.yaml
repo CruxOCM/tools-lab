@@ -1,0 +1,121 @@
+apiVersion: v1
+data:
+  auth.py: |
+    # SPDX-FileCopyrightText: Copyright 2024 CruxOCM, Inc.
+    # Temporary duplication of Signal Suite authentication logic in JupyterHub
+    # Will be removed in favor of a shared authentication service (SSO)
+    import json
+    import os
+    import hashlib
+    from jupyterhub.auth import Authenticator
+    from tornado import gen
+
+    USERS_FILE_PATH = '/etc/jupyterhub_config/users.json'
+
+
+    def load_users():
+        if not os.path.exists(USERS_FILE_PATH):
+            raise FileNotFoundError("The users file does not exist.")
+        with open(USERS_FILE_PATH, 'r') as f:
+            users = json.load(f)
+        return users
+
+
+    class SignalSuiteAuthenticator(Authenticator):
+        @gen.coroutine
+        def authenticate(self, handler, data):
+            username = data['username']
+            password = data['password']
+
+            password_hash = hashlib.sha256(password.encode()).hexdigest()
+            users = load_users()
+            user_record = next((user for user in users if
+                                (user["username"] == username or user["email"] == username) and user[
+                                    "hash"] == password_hash),
+                               None)
+            if user_record:
+                return user_record["username"]
+            else:
+                return None
+  jupyterhub_config.py: |
+    """SPDX-FileCopyrightText: Copyright 2024 CruxOCM, Inc."""
+    import os
+    import sys
+    from dockerspawner import DockerSpawner
+
+    c = get_config()
+
+    # Ensure the custom authenticator module is in the Python path
+    sys.path.insert(0, os.path.dirname(__file__))
+    from auth import SignalSuiteAuthenticator
+
+
+    class ResourceLimitedDockerSpawner(DockerSpawner):
+        def start(self):
+            # Set CPU and memory limits - 1 CPU and 4 GB of RAM (if not set in config otherwise)
+            self.cpu_limit = 1.0
+            self.mem_limit = os.environ.get('DOCKER_JUPYTER_NOTEBOOK_MAX_RAM', '4G')
+
+            return super().start()
+
+
+    # The IP for the Hub process to listen on
+    c.JupyterHub.bind_url = 'http://0.0.0.0:8888'
+
+    # Hub IP address and port
+    c.JupyterHub.hub_ip = 'jupyterhub'
+    c.JupyterHub.hub_port = 8081
+
+    # Cookie secret for XSRF protection
+    cookie_secret = os.environ.get('JUPYTERHUB_COOKIE_SECRET')
+    c.JupyterHub.cookie_secret = bytes.fromhex(cookie_secret)
+
+    # Use the Docker spawner
+    c.JupyterHub.spawner_class = ResourceLimitedDockerSpawner
+
+    # Spawn containers from this image
+    c.DockerSpawner.image = 'jupyter-spawn'
+
+    # Notebook directory inside the container
+    c.DockerSpawner.notebook_dir = '/home/jovyan/work'
+
+    # Remove containers when they are stopped
+    c.DockerSpawner.remove_containers = True
+
+    # Usernames to containers
+    c.DockerSpawner.name_template = '{username}-jupyter'
+
+    # Configure the Docker client
+    c.DockerSpawner.use_internal_ip = True
+    c.DockerSpawner.host_ip = 'jupyterhub'
+    c.DockerSpawner.network_name = 'signal_suite_network'
+    c.DockerSpawner.extra_host_config = {'network_mode': 'signal_suite_network'}
+
+    # Set the log level by value or name.
+    c.JupyterHub.log_level = 'DEBUG'
+
+    # Set up authentication
+    c.JupyterHub.authenticator_class = SignalSuiteAuthenticator
+    c.Authenticator.allow_all = True
+
+    # User volume mount using environment variable
+    user_data_path = os.environ.get('JUPYTERHUB_USER_DATA_PATH')
+    if user_data_path:
+        c.DockerSpawner.volumes = {
+            f'{user_data_path}/{{username}}': '/home/jovyan/work'
+        }
+    else:
+        raise ValueError("Environment variable JUPYTERHUB_USER_DATA_PATH is not set")
+
+    # Hook to set permissions on the work directory when the container is created
+    c.DockerSpawner.extra_create_kwargs.update({
+        'command': '/bin/bash -c "sudo chown -R jovyan:users /home/jovyan/work && sudo chmod -R u+w /home/jovyan/work && '
+                   'start-notebook.sh"'
+    })
+  users.json: ""
+kind: ConfigMap
+metadata:
+  labels:
+    app: jupyterhub
+  name: jupyterhub-cm2
+  namespace: signal-suite

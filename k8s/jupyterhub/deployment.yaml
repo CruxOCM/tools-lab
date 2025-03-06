@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: jupyterhub
+  name: jupyterhub
+  namespace: signal-suite
+spec:
+  selector:
+    matchLabels:
+      app: jupyterhub
+  template:
+    metadata:
+      labels:
+        app: jupyterhub
+    spec:
+      containers:
+        - args:
+            - jupyterhub
+            - -f
+            - /etc/jupyterhub_config/jupyterhub_config.py
+          env:
+            - name: JUPYTERHUB_COOKIE_SECRET
+              value: af33d830cdf857b61501a2fb7254706fd974dfdbcf9b55d2b3dfaa56e17d0cc4
+            - name: JUPYTERHUB_USER_DATA_PATH
+              value: ./data/jupyter/user_data/
+          image: jupyterhub
+          name: jupyterhub
+          ports:
+            - containerPort: 8888
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/jupyterhub_config
+              name: jupyterhub-cm1
+            - mountPath: /home/jovyan/work
+              name: jupyterhub-claim3
+            - mountPath: /etc/jupyterhub_config/users.json
+              name: jupyterhub-cm4
+              subPath: users.json
+      restartPolicy: Always
+      volumes:
+        - configMap:
+            name: jupyterhub-cm1
+          name: jupyterhub-cm1
+        - name: jupyterhub-claim3
+          persistentVolumeClaim:
+            claimName: jupyterhub-claim3
+        - configMap:
+            items:
+              - key: users.json
+                path: users.json
+            name: jupyterhub-cm4
+          name: jupyterhub-cm4
