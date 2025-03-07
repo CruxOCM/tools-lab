@@ -47,10 +47,7 @@ spec:
       volumes:
         - name: influxdb-data
           persistentVolumeClaim:
-            claimName: influxdb-claim
-        - configMap:
-            items:
-              - key: influx-configs
-                path: config
-            name: influxdb-config
-          name: influxdb-config
+            claimName: influxdb-claim-data
+        - name: influxdb-config
+          persistentVolumeClaim:
+            claimName: influxdb-claim-config
